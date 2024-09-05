@@ -94,10 +94,10 @@ function showQuetions(index){
 
     //creating a new span and div tag for question and option and passing the value using array index
     let que_tag = '<span>'+ questions[index].numb + ". " + questions[index].question +'</span>';
-    let option_tag = '<div class="option"><span>'+ questions[index].options[0] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[1] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[2] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[3] +'</span></div>';
+    let option_tag = '<div class="option">'+ questions[index].options[0] +'</div>'
+    + '<div class="option">'+ questions[index].options[1] +'</div>'
+    + '<div class="option">'+ questions[index].options[2] +'</div>'
+    + '<div class="option">'+ questions[index].options[3] +'</div>';
     que_text.innerHTML = que_tag; //adding new span tag inside que_tag
     option_list.innerHTML = option_tag; //adding new div tag inside option_tag
     
@@ -116,8 +116,9 @@ let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 function optionSelected(answer){
     clearInterval(counter); //clear counter
     clearInterval(counterLine); //clear counterLine
+    const option = option_list.querySelectorAll(".option");
     let userAns = answer.textContent; //getting user selected option
-    let correcAns = questions[que_count].answer; //getting correct answer from array
+    let correcAns = option[questions[que_count].ansIndex].textContent; //getting correct answer from array
     const allOptions = option_list.children.length; //getting all option items
     
     if(userAns == correcAns){ //if user selected option is equal to array's correct answer
@@ -141,6 +142,9 @@ function optionSelected(answer){
     }
     for(i=0; i < allOptions; i++){
         option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+    }
+    if (questions[que_count].numb == 50){
+        next_btn.innerHTML = "Finish"
     }
     next_btn.classList.add("show"); //show the next button if user selected any option
 }
